@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../../components/Navbar'
 import { Link } from 'react-router-dom'
 import { Info, Play } from 'lucide-react'
@@ -10,6 +10,7 @@ import MovieSlider from '../../components/MovieSlider'
 const HomeScreen = () => {
     const {trendingContent} = useGetTrendingContent()
     const {contentType} = useContentStore()
+    const [imageLoading, setImageLoading] = useState(true)
 
 
     if(!trendingContent)return (
@@ -23,7 +24,16 @@ const HomeScreen = () => {
     <div className='relative h-screen text-white'>
             <Navbar/>
 
-            <img src={ORIGINAL_IMG_BASE_URL+trendingContent?.backdrop_path} alt="" className='absolute top-0 left-0 w-full h-full object-cover -z-50' />
+            {imageLoading && (
+            <div className='absolute top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center -z-10 shimmer'/>
+ 
+            )}
+
+            <img src={ORIGINAL_IMG_BASE_URL+trendingContent?.backdrop_path} alt="" className='absolute top-0 left-0 w-full h-full object-cover -z-50'
+            onLoad={()=>{
+                setImageLoading(false)
+            }}
+            />
             <div className='absolute top-0 left-0 w-full h-full bg-black/50 -z-50'/>
             <div className='absolute top-0 left-0 w-full h-full flex flex-col justify-center px-8 md:px-16 lg:px-32'>
                 <div className='bg-gradient-to-b from-black via-transparent to-transparent absolute w-full h-full top-0 left-0 -z-10'

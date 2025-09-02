@@ -19,3 +19,13 @@
     background-position: 1000px 0;
   }
 }
+
+/* in your CSS file or global styles */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
